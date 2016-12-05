@@ -5,6 +5,9 @@
 ** See Copyright Notice at the end of this file
 */
 
+#if !defined(LUA_CORE) && !defined(LUA_LIB)
+#include "compat-5.2.h"
+#endif
 
 #ifndef lua_h
 #define lua_h
@@ -37,6 +40,8 @@
 #define LUA_COPYRIGHT	"Copyright (C) 1994-2008 Lua.org, PUC-Rio"
 #define LUA_AUTHORS	"R. Ierusalimschy, L. H. de Figueiredo & W. Celes"
 
+#define LUA_VERSION_MAJOR	"5"
+#define LUA_VERSION_MINOR	"1"
 
 /* mark for precompiled code (`<esc>Lua') */
 #define	LUA_SIGNATURE	"\033Lua"
