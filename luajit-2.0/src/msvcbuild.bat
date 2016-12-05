@@ -63,22 +63,27 @@ buildvm -m vmdef -o jit\vmdef.lua %ALL_LIB%
 buildvm -m folddef -o lj_folddef.h lj_opt_fold.c
 @if errorlevel 1 goto :BAD
 
+@echo Compiling with args: %*
+
+@rem %1 'debug' or 'release'
 @if "%1" neq "debug" goto :NODEBUG
-@shift
-@set LJCOMPILE=%LJCOMPILE% /Zi
+@set LJCOMPILE=%LJCOMPILE% /Zi /DUNICODE /D_UNICODE
 @set LJLINK=%LJLINK% /debug
 :NODEBUG
+
+@rem %2 'dll' , 'static' , 'amalg'
+@shift
 @if "%1"=="amalg" goto :AMALGDLL
 @if "%1"=="static" goto :STATIC
-%LJCOMPILE% /MD /DLUA_BUILD_AS_DLL lj_*.c lib_*.c
+%LJCOMPILE% /MD /DLUA_BUILD_AS_DLL lj_*.c lib_*.c compat-5.2.c
 @if errorlevel 1 goto :BAD
-%LJLINK% /DLL /out:%LJDLLNAME% lj_*.obj lib_*.obj
+%LJLINK% /DLL /out:%LJDLLNAME% lj_*.obj lib_*.obj compat-5.2.obj
 @if errorlevel 1 goto :BAD
 @goto :MTDLL
 :STATIC
-%LJCOMPILE% lj_*.c lib_*.c
+%LJCOMPILE% lj_*.c lib_*.c compat-5.2.c
 @if errorlevel 1 goto :BAD
-%LJLIB% /OUT:%LJLIBNAME% lj_*.obj lib_*.obj
+%LJLIB% /OUT:%LJLIBNAME% lj_*.obj lib_*.obj compat-5.2.obj
 @if errorlevel 1 goto :BAD
 @goto :MTDLL
 :AMALGDLL
@@ -89,6 +94,12 @@ buildvm -m folddef -o lj_folddef.h lj_opt_fold.c
 :MTDLL
 if exist %LJDLLNAME%.manifest^
   %LJMT% -manifest %LJDLLNAME%.manifest -outputresource:%LJDLLNAME%;2
+
+@rem %3 'normal' or 'unicode'
+@shift
+@if "%1" neq "unicode" goto :NOUNICODE
+@set LJCOMPILE=%LJCOMPILE% /DUNICODE /D_UNICODE
+:NOUNICODE
 
 %LJCOMPILE% luajit.c
 @if errorlevel 1 goto :BAD
