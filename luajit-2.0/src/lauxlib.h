@@ -5,7 +5,7 @@
 */
 
 // Lua 5.2 compatibility layer
-#if !defined(LUA_CORE) && !defined(LUA_LIB)
+#if !defined(LUA_CORE) && !defined(LUA_LIB) && defined(LUAJIT_ENABLE_LUA52COMPAT)
 #include "compat-5.2.h"
 #endif
 
