@@ -4,6 +4,10 @@
 ** See Copyright Notice in lua.h
 */
 
+// Lua 5.2 compatibility layer
+#if !defined(LUA_CORE) && !defined(LUA_LIB)
+#include "compat-5.2.h"
+#endif
 
 #ifndef lauxlib_h
 #define lauxlib_h
