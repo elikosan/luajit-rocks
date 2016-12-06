@@ -181,7 +181,7 @@ ENDIF()
 
 ## SOURCES
 INSTALL(FILES src/luaconf.h src/lua.h src/lauxlib.h src/lualib.h
-              src/lua.hpp src/luajit.h
+              src/lua.hpp src/luajit.h src/compat-5.2.h
   DESTINATION "${INSTALL_INCLUDE_SUBDIR}")
 
 MACRO(LJ_TEST_ARCH stuff)
