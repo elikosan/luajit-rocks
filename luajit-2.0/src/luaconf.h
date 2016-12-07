@@ -141,8 +141,7 @@
 #define LUA_API	LUA_EXTERNC	__declspec(dllimport)
 #endif
 #else
-#define LUA_API     LUA_EXTERNC __attribute__ ((visibility ("default")))
-#define LUALIB_API  LUA_EXTERNC __attribute__ ((visibility ("default")))
+#define LUA_API     LUA_EXTERNC
 #endif
 
 #define LUALIB_API	LUA_API
