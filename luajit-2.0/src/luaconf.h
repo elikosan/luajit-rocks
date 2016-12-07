@@ -128,21 +128,21 @@
 #define LUA_INTFRM_T		long
 
 /* Linkage of public API functions. */
-# ifdef __cplusplus
-#  define LUA_EXTERNC extern "C"
-# else
-#  define LUA_EXTERNC extern
-# endif
+#ifdef __cplusplus
+#define LUA_EXTERNC extern "C"
+#else
+#define LUA_EXTERNC extern
+#endif
 
 #if defined(LUA_BUILD_AS_DLL)
-# if defined(LUA_CORE) || defined(LUA_LIB)
-#  define LUA_API	LUA_EXTERNC	__declspec(dllexport)
-# else
-#  define LUA_API	LUA_EXTERNC	__declspec(dllimport)
-# endif
+#if defined(LUA_CORE) || defined(LUA_LIB)
+#define LUA_API	LUA_EXTERNC	__declspec(dllexport)
 #else
-# define LUA_API     LUA_EXTERNC __attribute__ ((visibility ("default")))
-# define LUALIB_API  LUA_EXTERNC __attribute__ ((visibility ("default")))
+#define LUA_API	LUA_EXTERNC	__declspec(dllimport)
+#endif
+#else
+#define LUA_API     LUA_EXTERNC __attribute__ ((visibility ("default")))
+#define LUALIB_API  LUA_EXTERNC __attribute__ ((visibility ("default")))
 #endif
 
 #define LUALIB_API	LUA_API
